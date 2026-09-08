@@ -1,6 +1,7 @@
 import requests
 import json
 from textblob import TextBlob
+import pandas as pd
 api_key = "ba901fc4867d4cc3b1dcfc0f87949b3e"
 
 url = f"https://newsapi.org/v2/top-headlines?country=us&apiKey={api_key}"
@@ -61,3 +62,10 @@ print("Positive:", pos)
 print("Negative:", neg)
 print("Neutral:", neut)
 
+# Create DataFrame
+df = pd.DataFrame(news_data)
+
+# Save to CSV
+df.to_csv("news_sentiment.csv", index=False)
+
+print("\nCSV file 'news_sentiment.csv' created successfully!")
