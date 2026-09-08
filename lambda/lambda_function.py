@@ -3,8 +3,9 @@ import json
 import requests
 import boto3
 
-BUCKET_NAME = os.environ["BUCKET_NAME"]
 NEWS_API_KEY = os.environ["NEWS_API_KEY"]
+BUCKET_NAME = os.environ["BUCKET_NAME"]
+
 
 def lambda_handler(event, context):
 
@@ -12,9 +13,12 @@ def lambda_handler(event, context):
 
     response = requests.get(url)
     data = response.json()
-    with open("/tmp/news_data.json", "w") as file:
-    json.dump(data, file, indent=4)
 
+    # Save JSON temporarily
+    with open("/tmp/news_data.json", "w") as file:
+        json.dump(data, file, indent=4)
+
+    # Upload JSON to Amazon S3
     s3 = boto3.client("s3")
 
     s3.upload_file(
@@ -22,6 +26,7 @@ def lambda_handler(event, context):
         BUCKET_NAME,
         "news_data.json"
     )
+
     return {
         "statusCode": 200,
         "body": json.dumps(data)
