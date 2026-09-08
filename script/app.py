@@ -3,6 +3,9 @@ import json
 from textblob import TextBlob
 import pandas as pd
 import matplotlib.pyplot as plt
+import boto3
+
+
 api_key = "ba901fc4867d4cc3b1dcfc0f87949b3e"
 
 url = f"https://newsapi.org/v2/top-headlines?country=us&apiKey={api_key}"
@@ -11,7 +14,18 @@ response = requests.get(url)
 data = response.json()
 with open("news_data.json", "w") as file:
     json.dump(data, file, indent=4)
+# Upload JSON to Amazon S3
+s3 = boto3.client("s3")
 
+bucket_name = "akita-news-sentiment-2026-1234-141485589054-ap-south-1-an"
+
+s3.upload_file(
+    "news_data.json",
+    bucket_name,
+    "news_data.json"
+)
+
+print("Raw News JSON uploaded to Amazon S3")
 print("News saved locally")
 pos = 0
 neg = 0
