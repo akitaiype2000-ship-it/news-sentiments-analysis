@@ -11,4 +11,20 @@ with open("news_data.json", "w") as file:
     json.dump(data, file, indent=4)
 
 print("News saved locally")
+for article in data["articles"]:
+
+    title = article["title"]
+    source = article["source"]["name"]
+    author = article["author"]
+    description = article["description"]
+    published = article["publishedAt"]
+    article_url = article["url"]
+
+    print("Title:", title)
+    print("Source:", source)
+    print("Author:", author)
+    print("Published:", published)
+    print("Description:", description)
+    print("URL:", article_url)
+    print("-" * 80)
 print(data)
