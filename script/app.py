@@ -14,6 +14,7 @@ print("News saved locally")
 pos = 0
 neg = 0
 neut = 0
+news_data = []
 for article in data["articles"]:
 
     title = article["title"]
@@ -44,9 +45,19 @@ for article in data["articles"]:
     print("Sentiment:", sentiment)
     print("Polarity:", polarity)
     print("-" * 80)
+    news_data.append({
+    "Title": title,
+    "Source": source,
+    "Author": author,
+    "Published": published,
+    "Description": description,
+    "URL": article_url,
+    "Sentiment": sentiment,
+    "Polarity": polarity
+    })
 print("\n========== SUMMARY ==========")
 print("Total Articles:", len(data["articles"]))
 print("Positive:", pos)
 print("Negative:", neg)
 print("Neutral:", neut)
-print(data)
+
