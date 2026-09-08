@@ -2,6 +2,7 @@ import requests
 import json
 from textblob import TextBlob
 import pandas as pd
+import matplotlib.pyplot as plt
 api_key = "ba901fc4867d4cc3b1dcfc0f87949b3e"
 
 url = f"https://newsapi.org/v2/top-headlines?country=us&apiKey={api_key}"
@@ -69,3 +70,21 @@ df = pd.DataFrame(news_data)
 df.to_csv("news_sentiment.csv", index=False)
 
 print("\nCSV file 'news_sentiment.csv' created successfully!")
+
+labels = ["Positive", "Negative", "Neutral"]
+values = [pos, neg, neut]
+
+print(values)
+
+plt.figure(figsize=(6, 4))
+plt.bar(labels, values)
+plt.title("News Sentiment Analysis")
+plt.xlabel("Sentiment")
+plt.ylabel("Number of Articles")
+plt.tight_layout()
+
+plt.savefig("graph.png")
+
+plt.show()
+
+print("Graph displayed")
