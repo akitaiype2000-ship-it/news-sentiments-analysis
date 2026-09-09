@@ -1,0 +1,8 @@
+streamlit
+pandas
+sqlalchemy
+psycopg2-binary
+boto3
+matplotlib
+requests
+textblob
